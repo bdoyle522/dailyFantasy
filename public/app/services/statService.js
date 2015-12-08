@@ -10,9 +10,16 @@ app.service('statService', function($http, $q){
   ];
 
   this.getPlayers = function(){
-    return players;
+    var dfd = $q.defer();
+    $http({
+      method: 'GET',
+      url: '/call'
+    }).then(function(res){
+      dfd.resolve(res.data);
+      console.log(res.data);
+    });
+    return dfd.promise;
   };
-
 
 
 })
