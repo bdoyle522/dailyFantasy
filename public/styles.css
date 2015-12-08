@@ -1,0 +1,19 @@
+.jumbo1 {
+  padding-top: 100px;
+}
+
+.front {
+  text-align: center;
+}
+
+.navbar-default {
+  background-color: #79BD9A;
+}
+
+.background-picture {
+  background: url("./odb.jpg");
+}
+
+body {
+  padding-top: 70px;
+}
