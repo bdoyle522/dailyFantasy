@@ -24,15 +24,16 @@
   </div>
   <table class = "table active">
     <tr>
-      <th>Guy</th>
-      <th>Price</th>
+      <span title="sort"><th ng-click="orderByField = 'Name'; reverseSort=!reverseSort">Player</th></span>
+      <th ng-click="orderByField = 'Salary'; reverseSort=!reverseSort">Salary</th>
+      <th ng-click="orderByField = 'LastGameFantasyPoints'; reverseSort=!reverseSort">Last Game</th>
+      <th ng-click="orderByField = 'ProjectedFantasyPoints'; reverseSort=!reverseSort">Projected</th>
     </tr>
-    <tr>
-      <td>Antonio Brown</td>
-      <td>$1800</td>
+    <tr ng-repeat="athlete in athletes | orderBy:orderByField:reverseSort">
+      <td>{{athlete.ShortName}}</td>
+      <td>${{athlete.Salary}}</td>
+      <td>{{athlete.LastGameFantasyPoints}}</td>
+      <td>{{athlete.ProjectedFantasyPoints}}</td>
     </tr>
   </table>
-  <div ng-repeat="athlete in athletes">
-    {{athlete.name}}
-  </div>
 </div>
