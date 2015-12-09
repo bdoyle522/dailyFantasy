@@ -4,7 +4,7 @@ app.controller('createCtrl', function($scope, statService){
 
   $scope.players = function(){
     statService.getPlayers().then(function(res){
-      console.log(res[0].Name);
+      console.log(res);
       $scope.athletes = res;
       // statService.getWR1();
     });

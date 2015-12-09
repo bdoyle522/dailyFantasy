@@ -18,22 +18,49 @@
         </div>
       </div>
   </nav>
-  <h1>Player Selection</h1>
-  <div ng-repeat="player in players">
-    {{player.data.name}}
+  <h1>Wide Receiver Selection</h1>
+  <div class="row">
+    <div class="col-md-8">
+      <table class = "table active">
+        <tr>
+          <th ng-click="orderByField = 'Name'; reverseSort=!reverseSort">Player</th>
+          <th ng-click="orderByField = 'Salary'; reverseSort=!reverseSort">Salary</th>
+          <th ng-click="orderByField = 'LastGameFantasyPoints'; reverseSort=!reverseSort">Last Game</th>
+          <th ng-click="orderByField = 'ProjectedFantasyPoints'; reverseSort=!reverseSort">Projected</th>
+        </tr>
+        <tr ng-repeat="athlete in athletes | orderBy:orderByField:reverseSort">
+          <td ui-sref="playerStats">{{athlete.ShortName}}</td>
+          <td>${{athlete.Salary}}</td>
+          <td>{{athlete.LastGameFantasyPoints}}</td>
+          <td>{{athlete.ProjectedFantasyPoints}}</td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div class="col-md-4">
+      <table class="table active">
+      <tr>
+        <th>Selected Receivers</th>
+        <th>Salary</th>
+      </tr>
+        <tr>
+          <td>Player 1</td>
+          <td>$xxxx</td>
+        </tr>
+      </tr>
+      <tr>
+          <td>Player 2</td>
+          <td>$xxxx</td>
+      </tr>
+      <tr>
+          <td>Player 3</td>
+          <td>$xxxx</td>
+      </tr>
+      <tfoot>
+          <td>Total:</td>
+          <td>$xxxx</td>
+      </tfoot>
+      </div>
   </div>
-  <table class = "table active">
-    <tr>
-      <span title="sort"><th ng-click="orderByField = 'Name'; reverseSort=!reverseSort">Player</th></span>
-      <th ng-click="orderByField = 'Salary'; reverseSort=!reverseSort">Salary</th>
-      <th ng-click="orderByField = 'LastGameFantasyPoints'; reverseSort=!reverseSort">Last Game</th>
-      <th ng-click="orderByField = 'ProjectedFantasyPoints'; reverseSort=!reverseSort">Projected</th>
-    </tr>
-    <tr ng-repeat="athlete in athletes | orderBy:orderByField:reverseSort">
-      <td>{{athlete.ShortName}}</td>
-      <td>${{athlete.Salary}}</td>
-      <td>{{athlete.LastGameFantasyPoints}}</td>
-      <td>{{athlete.ProjectedFantasyPoints}}</td>
-    </tr>
-  </table>
 </div>

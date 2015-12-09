@@ -1,4 +1,4 @@
-var app = angular.module('dailyFantasy', ['ui.router']);
+var app = angular.module('dailyFantasy', ['ui.router','ui.bootstrap']);
 
 
 app.config(function($stateProvider, $urlRouterProvider){
@@ -33,9 +33,12 @@ app.config(function($stateProvider, $urlRouterProvider){
       url: '/createLineup',
       templateUrl: 'app/views/createLineup/createTmpl.html',
       controller: 'createCtrl'
+    })
+    .state('playerStats', {
+      url: '/playerStats',
+      templateUrl: 'app/views/playerStats/playerTmpl.html',
+      controller: 'playerStatsCtrl'
     });
   $urlRouterProvider.otherwise('/');
-
-
 
 });

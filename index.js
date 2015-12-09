@@ -36,6 +36,28 @@ app.get('/wr/:id', function(req, res){
   });
 });
 
+app.get('/projections/:week', function(req, res){
+  requestify.get('https://api.fantasydata.net/nfl/v2/JSON/PlayerGameProjectionStatsByPlayerID/2015/'+req.params.week+'/11056',{
+    headers : {
+    'ocp-apim-subscription-key': 'a6e296faeaa24a5da75947241c93d8ba'
+    }
+  }).then(function(response, error){
+    var resp = response.getBody();
+    res.send(resp);
+  });
+});
+
+app.get('/results/:week', function(req, res){
+  requestify.get('https://api.fantasydata.net/nfl/v2/JSON/PlayerGameStatsByPlayerID/2015/'+req.params.week+'/11056',{
+    headers : {
+    'ocp-apim-subscription-key': 'a6e296faeaa24a5da75947241c93d8ba'
+    }
+  }).then(function(response, error){
+    var resp = response.getBody();
+    res.send(resp);
+  });
+});
+
 
 app.listen(port, function(){
   console.log("Listening on port: ", port);
