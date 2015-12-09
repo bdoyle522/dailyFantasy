@@ -3,8 +3,7 @@ var app = angular.module('dailyFantasy');
 
 app.service('statService', function($http, $q){
 
-
-
+  var wr1 = [{"ARI": "5571"}, {"ATL": "13291"}, {"BAL": "12722"}, {"BUF": "16003"}, {"CAR": "12109"}, {"CHI": "14187"}, {"CIN": "12845"}, {"CLE": "13887"}, {"DAL": "11270"}, {"DEN": "11197"}, {"DET": "6029"}, {"GB": "13227"}, {"HOU": "14986"}, {"IND": "14005"}, {"JAX": "15018"}, {"KC": "8914"}, {"MIA": "16020"}, {"MIN": "16906"}, {"NE": "9906"}, {"NO": "16568"}, {"NYG": "16389"}, {"NYJ": "11667"}, {"OAK": "16765"}, {"PHI": "15974"}, {"PIT": "11056"}, {"SD": "2950"}, {"SF": "11712"}, {"STL": "15215"}, {"TB": "16597"}, {"TEN": "16801"}, {"WAS": "3943"}];
   this.getPlayers = function(){
     var dfd = $q.defer();
     $http({
@@ -12,49 +11,50 @@ app.service('statService', function($http, $q){
       url: '/allPlayers'
     }).then(function(res){
       dfd.resolve(res.data);
-      console.log(res.data);
+      // console.log(res.data);
     });
     return dfd.promise;
   };
 
-  this.getWR1 = function(){
-    var dfd = $q.defer();
-    var wrs = [];
-    var wr1 = {};
-    $http({
-      method: 'GET',
-      url: '/allPlayers'
-    }).then(function(res){
-      for(var e in res.data){
-        if(res.data[e].Position === 'WR'){
-          wrs.push(res.data[e])
-          console.log(res.data[e].PlayerID);
-        };
-      }
-      // for(var e in wrs){
-        if(checkIfWR1(wrs[0]) === true){
-          wr1.push(wrs[e].playerID);
-        }
-      // };
-      console.log(wr1);
-      dfd.resolve(res.data);
-    });
-    return dfd.promise;
-    };
+  // this.getWR1 = function(){
+  //   var dfd = $q.defer();
+  //   var wrs = [];
+  //   var wr1 = {};
+  //   $http({
+  //     method: 'GET',
+  //     url: '/allPlayers'
+  //   }).then(function(res){
+  //     for(var e in res.data){
+  //       if(res.data[e].Position === 'WR'){
+  //         wrs.push(res.data[e])
+  //         console.log(res.data[e].PlayerID);
+  //       };
+  //     }
+  //     for(var i = 0; i < wrs.length; i++){
+  //       if(checkIfWR1(wrs[i])){
+  //         wr1.push(wrs[i].playerID);
+  //       }
+  //     };
+  //     console.log(wr1);
+  //     dfd.resolve(res.data);
+  //   });
+  //   return dfd.promise;
+  //   };
+  //
+  //   checkIfWR1 = function(wr){
+  //     var dfd = $q.defer();
+  //     var id = wr.PlayerID;
+  //     $http({
+  //       method: 'GET',
+  //       url: '/wr/'+id,
+  //     }).then(function(res){
+  //       var depth = res.data.DepthOrder
+  //       if(depth === 1){
+  //         console.log(res.data);
+  //         return true;
+  //       }
+  //       return false;
+  //     });
+  //   };
 
-    checkIfWR1 = function(wr){
-      var id = wr.PlayerID;
-      console.log(id);
-      console.log('break');
-      return $http({
-        method: 'GET',
-        url: '/wr/'+id,
-      }).then(function(res){
-        console.log(res);
-        if(res.data[e].DepthOrder === '1'){
-          console.log('name: ',res.data[e].Name,'position: ', res.data[e].Position, 'Depth Order: ', res.data[e].DepthOrder);
-        }
-      });
-    };
-
-})
+});

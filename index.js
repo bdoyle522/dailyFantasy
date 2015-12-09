@@ -25,9 +25,8 @@ app.get('/allPlayers', function(req, res){
 });
 
 app.get('/wr/:id', function(req, res){
-  console.log(req.params.id);
   console.log('GET');
-  requestify.get(`https://api.fantasydata.net/nfl/v2/JSON/${req.params.id}/`,{
+  requestify.get('https://api.fantasydata.net/nfl/v2/JSON/Player/'+req.params.id,{
     headers : {
     'ocp-apim-subscription-key': 'a6e296faeaa24a5da75947241c93d8ba'
     }
