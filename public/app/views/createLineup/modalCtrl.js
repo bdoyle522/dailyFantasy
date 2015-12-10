@@ -1,7 +1,17 @@
-var app = angular.module('dailyFantasy');
+angular.module('dailyFantasy').controller('ModalCtrl', function($scope, $uibModalInstance, statService){
+  var items = ['item1', 'item2', 'item3'];
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
 
-app.controller('playerStatsCtrl', function($scope, statService){
+  $scope.ok = function () {
+    $uibModalInstance.close($scope.selected.item);
+  };
 
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
   $scope.stats = function(){
     // var projections = {};
     var week = 1;

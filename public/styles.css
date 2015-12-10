@@ -22,3 +22,11 @@ th {
   cursor: pointer;
   text-decoration: underline;
 }
+
+.modal {
+  display: block;
+}
+
+.pointy {
+  cursor: pointer;
+}

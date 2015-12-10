@@ -29,12 +29,44 @@
           <th ng-click="orderByField = 'ProjectedFantasyPoints'; reverseSort=!reverseSort">Projected</th>
         </tr>
         <tr ng-repeat="athlete in athletes | orderBy:orderByField:reverseSort">
-          <td ui-sref="playerStats">{{athlete.ShortName}}</td>
+          <td ng-click="open()" class="pointy">{{athlete.ShortName}}</td>
           <td>${{athlete.Salary}}</td>
           <td>{{athlete.LastGameFantasyPoints}}</td>
           <td>{{athlete.ProjectedFantasyPoints}}</td>
         </tr>
       </table>
+      <div>
+      <script type="text/ng-template" id="myModalContent.html"/>
+        <div class="modal-header">
+          <h3 class="modal-title">Season Stats</h3>
+        </div>
+        <table class = "table active">
+          <tr>
+            <th>Week</th>
+            <th>Opponent</th>
+            <th>Projected Points</th>
+            <th>Actual Stats</th>
+            <th>Projection/Performance Differential</th>
+          </tr>
+          <tr>
+            <td>{{week}}</td>
+            <td>{{player.Opponent}}</td>
+            <td>{{player.FantasyPointsPPR}}</td>
+            <td>{{actual}}</td>
+            <td>{{difference}}</td>
+          </tr>
+        </table>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+          <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+      </script>
+    <!-- <button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
+    <button type="button" class="btn btn-default" ng-click="open('lg')">Large modal</button>
+    <button type="button" class="btn btn-default" ng-click="open('sm')">Small modal</button>
+    <button type="button" class="btn btn-default" ng-click="toggleAnimation()">Toggle Animation ({{ animationsEnabled }})</button>
+    <div ng-show="selected">Selection from a modal: {{ selected }}</div> -->
 
     </div>
 

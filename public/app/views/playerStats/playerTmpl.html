@@ -21,12 +21,14 @@
   <h1>Antonio Brown Stats</h1>
   <table class = "table active">
     <tr>
+      <th>Week</th>
       <th>Opponent</th>
       <th>Projected Points</th>
       <th>Actual Stats</th>
       <th>Projection/Performance Differential</th>
     </tr>
-    <tr ng-repeat="player in projections">
+    <tr>
+      <td>{{week}}</td>
       <td>{{player.Opponent}}</td>
       <td>{{player.FantasyPointsPPR}}</td>
       <td>{{actual}}</td>
