@@ -37,15 +37,20 @@ app.service('statService', function($http, $q){
       return dfd.promise;
   };
 
-  this.getWrSeasonStats = function(week){
+  this.getWrSeasonStats = function(){
     var dfd = $q.defer();
-    $http({
-      method: 'GET',
-      url: '/results/'+week
-    }).then(function(res){
-        dfd.resolve(res);
+    var season = [];
+    for(var week = 1; week< 11; week++){
+      $http({
+        method: 'GET',
+        url: '../week'+week+'.json',
+      }).then(function(res){
+        season.push(res.data);
       });
-      return dfd.promise;
+    };
+    console.log(season);
+    dfd.resolve(season);
+    return dfd.promise;
   };
 
 

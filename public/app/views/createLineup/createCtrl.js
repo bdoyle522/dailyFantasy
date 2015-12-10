@@ -23,7 +23,6 @@ app.controller('createCtrl', function($scope, $uibModal, $log, statService){
   $scope.animationsEnabled = true;
 
   $scope.open = function (size) {
-
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
       templateUrl: 'myModalContent.html',

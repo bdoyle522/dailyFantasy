@@ -13,9 +13,11 @@ app.controller('playerStatsCtrl', function($scope, statService){
         // console.log(res.data);
         // projections.push(res.data);
     });
+
       // console.log(projections);
     // $scope.player = projections;
     statService.getWrSeasonStats(week).then(function(res){
+      console.log(week);
       $scope.actual = res.data.FantasyPointsPPR;
       $scope.act = res.data.FantasyPointsPPR;
       console.log($scope.act);
