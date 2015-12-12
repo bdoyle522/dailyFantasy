@@ -22,17 +22,21 @@
   <table class = "table active">
     <tr>
       <th>Week</th>
+      <th>Home/Away</th>
       <th>Opponent</th>
-      <th>Projected Points</th>
-      <th>Actual Stats</th>
+      <th>Playing Surface</th>
+      <th>Projected Stats</th>
+      <th>Points</th>
       <th>Projection/Performance Differential</th>
     </tr>
-    <tr>
-      <td>{{week}}</td>
+    <tr ng-repeat="player in players">
+      <td>{{player.Week}}</td>
+      <td>{{player.HomeOrAway}}</td>
       <td>{{player.Opponent}}</td>
-      <td>{{player.FantasyPointsPPR}}</td>
-      <td>{{actual}}</td>
-      <td>{{difference}}</td>
+      <td>{{player.PlayingSurface}}</td>
+      <td>{{player.Projection}}</td>
+      <td>{{player.FantasyPointsFanDuel}}</td>
+      <td>{{player.Difference}}</td>
     </tr>
   </table>
 </div>

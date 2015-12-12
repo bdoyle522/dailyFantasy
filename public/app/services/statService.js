@@ -26,30 +26,37 @@ app.service('statService', function($http, $q){
     return wr1;
   };
 
-  this.getWrProjection = function(week){
-    var dfd = $q.defer();
-    $http({
-      method: 'GET',
-      url: '/projections/'+week
-    }).then(function(res){
-        dfd.resolve(res);
-      });
-      return dfd.promise;
-  };
+  // this.getWrProjection = function(){
+  //   var dfd = $q.defer();
+  //   var season = [];
+  //   for(var week = 1; week < 11; week++){
+  //     $http({
+  //       method: 'GET',
+  //       url: '/projections/'+week,
+  //     }).then(function(res){
+  //       season.push(res.data.FantasyPointsFanDuel);
+  //       console.log(season);
+  //       dfd.resolve(season);
+  //     });
+  //   };
+  //   return dfd.promise;
+  // };
 
-  this.getWrSeasonStats = function(){
+  this.getWrSeasonStats = function(week){
     var dfd = $q.defer();
     var season = [];
-    for(var week = 1; week< 11; week++){
+    for(var week = 1; week < 11; week++){
       $http({
         method: 'GET',
         url: '../week'+week+'.json',
       }).then(function(res){
         season.push(res.data);
+        for(var i = 0; i < season.length; i++){
+          season[i].Difference = (season[i].FantasyPointsFanDuel - season[i].Projection).toFixed(2);
+        }
+        dfd.resolve(season);
       });
     };
-    console.log(season);
-    dfd.resolve(season);
     return dfd.promise;
   };
 

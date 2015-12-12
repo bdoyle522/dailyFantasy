@@ -4,34 +4,22 @@ angular.module('dailyFantasy').controller('ModalCtrl', function($scope, $uibModa
   $scope.selected = {
     item: $scope.items[0]
   };
-
   $scope.ok = function () {
     $uibModalInstance.close($scope.selected.item);
   };
-
   $scope.cancel = function () {
     $uibModalInstance.dismiss('cancel');
   };
   $scope.stats = function(){
-    var week = 1;
-    $scope.week = week;
-    statService.getWrProjection(week).then(function(res){
-      $scope.player = res.data;
-      $scope.proj = res.data.FantasyPointsPPR;
-    });
-    statService.getWrSeasonStats(week).then(function(res){
+    statService.getWrSeasonStats().then(function(res){
       console.log(res);
-      $scope.actual = res.data.FantasyPointsPPR;
-      $scope.act = res.data.FantasyPointsPPR;
-      console.log($scope.act);
+      $scope.players = res;
+      $scope.players.difference = $scope.players.FantasyPointsFanDuel-$scope.players.Projection;
     });
-    setTimeout(function(){
-      console.log($scope.act);
-      $scope.difference = $scope.act-$scope.proj;
-      console.log($scope.difference);
-    }, 3000)
-
   };
-
+  setTimeout(function(){
+    for(var i = 0; i < 11; i++){
+      $scope.difference = $scope.players.FantasyPointsFanDuel-$scope.players.Projection;
+  }}, 2000);
   $scope.stats();
 });
