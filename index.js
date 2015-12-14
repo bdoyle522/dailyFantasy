@@ -5,6 +5,8 @@ var express = require('express'),
   fs = require('fs'),
   app = express(),
   requestify = require('requestify'),
+  userCtrl = require('./server-assets/controllers/userCtrl'),
+  lineupCtrl = require('./server-assets/controllers/lineupCtrl'),
   port = process.env.port || 9001;
 
 app.use(bodyParser.json(), cors(), express.static(__dirname + '/public'));
@@ -12,6 +14,8 @@ app.use(bodyParser.json(), cors(), express.static(__dirname + '/public'));
 // var headers = {
 //   'ocp-apim-subscription-key': '24b90e7fdf0542ffbf688fd703f77783'
 // };
+
+
 
 app.get('/allPlayers', function(req, res){
   console.log('GET');
@@ -87,3 +91,32 @@ app.get('/results', function(req, res) {
 app.listen(port, function(){
   console.log("Listening on port: ", port);
 });
+
+//user endpoints
+app.post('/api/user', userCtrl.addUser);
+app.get('/api/user', userCtrl.getUser);
+
+//lineup endpoints
+app.post('/api/lineup', lineupCtrl.createLineup);
+
+mongoose.connect('mongodb://localhost:27017/dailyFantasy');
+
+mongoose.connection.once('open', function(){
+  console.log('db connected');
+})
+
+// function createLineup(req,res) {
+//   var newLineup = new Lineup(req.body);
+//   var lineupId;
+//   newLinup.save().then(function(lineup) {
+//     lineupId = lineup._id;
+//     return User.findById(req.user._id).exec();
+//   }).then(function(user) {
+//     user.lineups.push(lineupId);
+//     return user.save();
+//   }).then(function(newUser) {
+//     return res.json(newUser);
+//   }, function(err) {
+//     return res.status(500).json(err);
+//   });
+// }

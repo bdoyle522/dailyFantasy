@@ -12,7 +12,6 @@ angular.module('dailyFantasy').controller('ModalCtrl', function($scope, $uibModa
   };
   $scope.stats = function(){
     statService.getWrSeasonStats().then(function(res){
-      console.log(res);
       $scope.players = res;
       $scope.players.difference = $scope.players.FantasyPointsFanDuel-$scope.players.Projection;
     });
