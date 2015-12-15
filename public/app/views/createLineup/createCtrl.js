@@ -4,7 +4,8 @@ app.controller('createCtrl', function($scope, $uibModal, $log, statService){
 
   $scope.players = function(){
     statService.getPlayers().then(function(res){
-    $scope.athletes = res;
+      console.log(res);
+      $scope.athletes = res;
     });
     $scope.select1 = {};
     $scope.select2 = {};

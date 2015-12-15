@@ -108,7 +108,7 @@ mongoose.connection.once('open', function(){
 function createLineup(req,res) {
   var newLineup = new Lineup(req.body);
   var lineupId;
-  newLinup.save().then(function(lineup) {
+  newLineup.save().then(function(lineup) {
     lineupId = lineup._id;
     return User.findById(req.user._id).exec();
   }).then(function(user) {
