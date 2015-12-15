@@ -1,7 +1,11 @@
 var express = require('express'),
   bodyParser = require('body-parser'),
   cors = require('cors'),
+  session = require('express-session'),
   mongoose = require('mongoose'),
+  passport = require('passport'),
+  LocalStrategy = require('passport-local').Strategy,
+  User = require('./server-assets/models/User'),
   fs = require('fs'),
   app = express(),
   requestify = require('requestify'),
@@ -14,6 +18,49 @@ app.use(bodyParser.json(), cors(), express.static(__dirname + '/public'));
 // var headers = {
 //   'ocp-apim-subscription-key': '24b90e7fdf0542ffbf688fd703f77783'
 // };
+
+app.use(session({secret: 'something'}));
+app.use(passport.initialize());
+app.use(passport.session);
+
+passport.use(new LocalStrategy(
+  function(username, password, done){
+    User.findOne({username: username}.exec().then(function(err, user){
+      if(err){return done(err); }
+      if(!user){
+        return done(null, false, {message: "incorrect username."});
+      }
+      if(!user.validPassword(password)) {
+        return done(null, false, {message: "Incorrect password."});
+      }
+      return done(null, user);
+    }))
+  }
+));
+
+passport.serializeUser(function(user, done){
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done){
+  done(null, obj);
+});
+
+var requireAuth = function(req, res, next){
+  if(!req.isAuthenticated()){
+    return res.status(401).end();
+  }
+  next();
+}
+
+app.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/createLineup',
+    failureRedirect: '/login',
+    failureFlash: true
+  })
+)
+
 
 
 

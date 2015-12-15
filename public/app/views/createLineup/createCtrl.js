@@ -1,6 +1,6 @@
 var app = angular.module('dailyFantasy');
 
-app.controller('createCtrl', function($scope, $uibModal, $log, statService){
+app.controller('createCtrl', function($scope, $uibModal, $log, statService, userService){
 
   $scope.players = function(){
     statService.getPlayers().then(function(res){
@@ -20,7 +20,10 @@ app.controller('createCtrl', function($scope, $uibModal, $log, statService){
   };
 
   $scope.selectPlayer = function(athlete){
-    if(!$scope.select1.ShortName){
+    if($scope.select1 === athlete || $scope.select2 === athlete || $scope.select3 === athlete){
+      alert('You have already selected '+ athlete.Name);
+    }
+    else if(!$scope.select1.ShortName){
       $scope.select1 = athlete;
       $scope.totalSalary+= athlete.Salary;
       $scope.first = true;
@@ -37,6 +40,16 @@ app.controller('createCtrl', function($scope, $uibModal, $log, statService){
     }
     else{alert('You have already selected 3 receivers')};
   };
+  $scope.submitLineup = function(){
+    var lineup = {
+      player1: $scope.select1,
+      player2: $scope.select2,
+      player3: $scope.select3
+    };
+    userService.createLineup(lineup).then(function(res){
+      console.log(res);
+    });
+  }
 
   $scope.removePlayer = function(athlete){
     switch(athlete){
@@ -58,18 +71,6 @@ app.controller('createCtrl', function($scope, $uibModal, $log, statService){
     }
   };
 
-  $scope.sortThem = function(){
-    // console.log($scope.select1.hasOwnProperty('Salary'));
-    // if(!($scope.select1.hasOwnProperty('Salary')) && ($scope.select2.hasOwnProperty('Salary'))){
-    //   console.log('here');
-    //   $scope.select1 = $scope.select2;
-    //   $scope.select2 = {};
-    // }
-    // if(!($scope.select2.hasOwnProperty('Salary')) && ($scope.select3.hasOwnProperty('Salary'))){
-    //   $scope.select2 = $scope.select3;
-    //   $scope.select3 = {};
-    // }
-  };
 
 
   $scope.animationsEnabled = true;

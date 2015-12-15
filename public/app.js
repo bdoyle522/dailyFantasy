@@ -5,7 +5,7 @@ app.config(function($stateProvider, $urlRouterProvider){
 
   $stateProvider
     .state('frontPage', {
-      url: '/',
+      url: '/login',
       templateUrl: 'app/views/frontPage/frontTmpl.html',
       controller: 'frontCtrl'
     })
@@ -39,6 +39,6 @@ app.config(function($stateProvider, $urlRouterProvider){
       templateUrl: 'app/views/playerStats/playerTmpl.html',
       controller: 'playerStatsCtrl'
     });
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/login');
 
 });

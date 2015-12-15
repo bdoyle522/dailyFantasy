@@ -13,4 +13,15 @@ app.service('userService', function($http){
     });
   };
 
+  this.createLineup = function(lineup){
+    console.log(lineup.player1);
+    return $http({
+      method: 'POST',
+      url: '/api/lineup',
+      data: {
+        players: lineup
+      }
+    })
+  }
+
 });
