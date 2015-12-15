@@ -21,10 +21,10 @@
   </nav>
   <h1>Wide Receiver Selection</h1>
   <div class="row">
-    <div class="col-md-2">
+    <!-- <div class="col-md-2">
       <a class="twitter-timeline" href="https://twitter.com/MatthewBerryTMR" data-widget-id="676515418358419456">Tweets by @MatthewBerryTMR</a>
-    </div>
-    <div class="col-md-6">
+    </div> -->
+    <div class="col-md-8">
       <table class = "table active">
         <tr>
           <th ng-click="orderByField = 'Name'; reverseSort=!reverseSort">Player</th>
@@ -47,31 +47,33 @@
 
     <div class="col-md-4">
       <table class="table active">
-      <tr>
-        <th>Selected Receivers</th>
-        <th>Salary</th>
-        <th></th>
-      </tr>
-      <tr>
-        <td>{{select1.ShortName}}</td>
-        <td>${{select1.Salary}}</td>
-        <td><button ng-show="first" ng-click="removePlayer(1); first=false" type="button" class="btn btn-danger btn-sm">-</button></td>
-      </tr>
-      </tr>
-      <tr>
-        <td>{{select2.ShortName}}</td>
-        <td>${{select2.Salary}}</td>
-        <td><button ng-show="second" ng-click="removePlayer(2); second=false" type="button" class="btn btn-danger btn-sm">-</button></td>
-      </tr>
-      <tr>
-        <td>{{select3.ShortName}}</td>
-        <td>${{select3.Salary}}</td>
-        <td><button ng-show="third" ng-click="removePlayer(3); third=false" type="button" class="btn btn-danger btn-sm">-</button></td>
-      </tr>
-      <tfoot>
-        <td>Total:</td>
-        <td>${{totalSalary}}</td>
-      </tfoot>
+        <tr>
+          <th>Selected Receivers</th>
+          <th>Salary</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td>{{select1.ShortName}}</td>
+          <td>${{select1.Salary}}</td>
+          <td><button ng-show="first" ng-click="removePlayer(1); first=false" type="button" class="btn btn-danger btn-sm">-</button></td>
+        </tr>
+        </tr>
+        <tr>
+          <td>{{select2.ShortName}}</td>
+          <td>${{select2.Salary}}</td>
+          <td><button ng-show="second" ng-click="removePlayer(2); second=false" type="button" class="btn btn-danger btn-sm">-</button></td>
+        </tr>
+        <tr>
+          <td>{{select3.ShortName}}</td>
+          <td>${{select3.Salary}}</td>
+          <td><button ng-show="third" ng-click="removePlayer(3); third=false" type="button" class="btn btn-danger btn-sm">-</button></td>
+        </tr>
+        <tfoot>
+          <td>Total:</td>
+          <td>${{totalSalary}}</td>
+        </tfoot>
+      </table>
+      <a class="twitter-timeline" href="https://twitter.com/MatthewBerryTMR" data-widget-id="676515418358419456">Tweets by @MatthewBerryTMR</a>
     </div>
   </div>
 </div>

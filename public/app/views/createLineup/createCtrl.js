@@ -97,4 +97,6 @@ app.controller('createCtrl', function($scope, $uibModal, $log, statService){
     $scope.animationsEnabled = !$scope.animationsEnabled;
   };
 
+
+
 });

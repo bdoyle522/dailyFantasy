@@ -105,18 +105,18 @@ mongoose.connection.once('open', function(){
   console.log('db connected');
 })
 
-// function createLineup(req,res) {
-//   var newLineup = new Lineup(req.body);
-//   var lineupId;
-//   newLinup.save().then(function(lineup) {
-//     lineupId = lineup._id;
-//     return User.findById(req.user._id).exec();
-//   }).then(function(user) {
-//     user.lineups.push(lineupId);
-//     return user.save();
-//   }).then(function(newUser) {
-//     return res.json(newUser);
-//   }, function(err) {
-//     return res.status(500).json(err);
-//   });
-// }
+function createLineup(req,res) {
+  var newLineup = new Lineup(req.body);
+  var lineupId;
+  newLinup.save().then(function(lineup) {
+    lineupId = lineup._id;
+    return User.findById(req.user._id).exec();
+  }).then(function(user) {
+    user.lineups.push(lineupId);
+    return user.save();
+  }).then(function(newUser) {
+    return res.json(newUser);
+  }, function(err) {
+    return res.status(500).json(err);
+  });
+}
