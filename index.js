@@ -89,7 +89,7 @@ app.get('/wr/:id', function(req, res){
 app.get('/projections/:week', function(req, res){
   requestify.get('https://api.fantasydata.net/nfl/v2/JSON/PlayerGameProjectionStatsByPlayerID/2015/'+req.params.week+'/11056',{
     headers : {
-    'ocp-apim-subscription-key': 'a6e296faeaa24a5da75947241c93d8ba'
+    'ocp-apim-subscription-key': ''
     }
   }).then(function(response, error){
     var resp = response.getBody();
@@ -100,7 +100,7 @@ app.get('/projections/:week', function(req, res){
 app.get('/results/:week', function(req, res){
   requestify.get('https://api.fantasydata.net/nfl/v2/JSON/PlayerGameStatsByPlayerID/2015/'+req.params.week+'/11056',{
     headers : {
-    'ocp-apim-subscription-key': 'a6e296faeaa24a5da75947241c93d8ba'
+    'ocp-apim-subscription-key': ''
     }
   }).then(function(response, error){
     var resp = response.getBody();
@@ -113,7 +113,7 @@ app.get('/results', function(req, res) {
   console.log('here');
   requestify.get('https://api.fantasydata.net/nfl/v2/JSON/PlayerGameStatsByPlayerID/2015/'+week+'/11056',{
     headers : {
-    'ocp-apim-subscription-key': 'a6e296faeaa24a5da75947241c93d8ba'
+    'ocp-apim-subscription-key': ''
     }
   }).then(function(response) {
     var data = response.getBody();
