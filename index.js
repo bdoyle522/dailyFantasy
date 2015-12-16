@@ -15,9 +15,7 @@ var express = require('express'),
 
 app.use(bodyParser.json(), cors(), express.static(__dirname + '/public'));
 
-// var headers = {
-//   'ocp-apim-subscription-key': '24b90e7fdf0542ffbf688fd703f77783'
-// };
+
 
 app.use(session({secret: 'something'}));
 app.use(passport.initialize());
@@ -68,7 +66,7 @@ app.get('/allPlayers', function(req, res){
   console.log('GET');
   requestify.get('https://api.fantasydata.net/nfl/v2/JSON/DailyFantasyPlayers/2015-DEC-13',{
     headers : {
-    'ocp-apim-subscription-key': 'a6e296faeaa24a5da75947241c93d8ba'
+    'ocp-apim-subscription-key': ''
     }
   }).then(function(response, error){
     var resp = response.getBody();
@@ -80,7 +78,7 @@ app.get('/wr/:id', function(req, res){
   console.log('GET');
   requestify.get('https://api.fantasydata.net/nfl/v2/JSON/Player/'+req.params.id,{
     headers : {
-    'ocp-apim-subscription-key': 'a6e296faeaa24a5da75947241c93d8ba'
+    'ocp-apim-subscription-key': ''
     }
   }).then(function(response, error){
     var resp = response.getBody();
