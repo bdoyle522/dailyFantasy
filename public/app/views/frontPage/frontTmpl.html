@@ -19,34 +19,34 @@
         </div>
   </nav>
   <div class="row">
-    <div class="col-md-6">
-      <form class="form">
-        <div class="form col-md-4">
-          <input placeholder="Username" type=text ng-model="user.username"></input>
-        </div>
-        <div class="form col-md-4">
-          <input placeholder="Password" type="text" ng-model="user.password"></input>
-        </div>
-        <div class="form col-md-2">
-          <button ng-click="addUser(user)" class="btn btn-default">Submit</input>
-        </div>
-      </form>
-    </div class="container">
+    <form class="form">
+      <div>
+        <label for="">Username:</label>
+        <input type="text" ng-model="login.username"/>
+      </div>
+      <div>
+        <label for="">Password:</label>
+        <input type="password" ng-model="login.password"/>
+      </div>
+      <div>
+        <input type="submit" value="Log In" ng-click="login()">
+      </div>
+    </form>
+  </div>
 
     <div class="col-md-6">
-      <form class="form" action="/login" method="post">
+      <form class="form">
         <div>
           <label for="">Username:</label>
-          <input type="text" name="username"/>
+          <input type="text" ng-model="user.username"/>
         </div>
         <div>
           <label for="">Password:</label>
-          <input type="password" name="password"/>
+          <input type="password" ng-model="user.password"/>
         </div>
         <div>
-          <input type="submit" value="Log In">
+          <input type="submit" value="Sign up" ng-click="addUser()">
         </div>
       </form>
-    </div class="container">
-  </div>
+    </div>
 </div>

@@ -1,65 +1,154 @@
 var express = require('express'),
   bodyParser = require('body-parser'),
-  cors = require('cors'),
   session = require('express-session'),
   mongoose = require('mongoose'),
   passport = require('passport'),
   LocalStrategy = require('passport-local').Strategy,
-  User = require('./server-assets/models/User'),
   fs = require('fs'),
-  app = express(),
+  bCrypt= require('bcrypt-nodejs'),
   requestify = require('requestify'),
-  userCtrl = require('./server-assets/controllers/userCtrl'),
-  lineupCtrl = require('./server-assets/controllers/lineupCtrl'),
+  flash = require('connect-flash'),
+  User = require('./server-assets/models/User'),
   port = process.env.port || 9001;
 
-app.use(bodyParser.json(), cors(), express.static(__dirname + '/public'));
 
-// var headers = {
-//   'ocp-apim-subscription-key': '24b90e7fdf0542ffbf688fd703f77783'
-// };
-
+var app = express();
+app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public'));
 app.use(session({secret: 'something'}));
 app.use(passport.initialize());
-app.use(passport.session);
+app.use(passport.session());
+app.use(flash());
+// app.use(function(req, res, next) {
+//         res.header('Access-Control-Allow-Credentials', true);
+//         res.header('Access-Control-Allow-Origin', req.headers.origin);
+//         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//         res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+//         if ('OPTIONS' == req.method) {
+//             res.send(200);
+//         } else {
+//             next();
+//         }
+// });
 
-passport.use(new LocalStrategy(
-  function(username, password, done){
-    User.findOne({username: username}.exec().then(function(err, user){
-      if(err){return done(err); }
-      if(!user){
-        return done(null, false, {message: "incorrect username."});
-      }
-      if(!user.validPassword(password)) {
-        return done(null, false, {message: "Incorrect password."});
-      }
-      return done(null, user);
-    }))
-  }
-));
+var isValidPassword = function(user, password){
+  return bCrypt.compareSync(password, user.password);
+}
+var createHash = function(password){
+ return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+}
 
 passport.serializeUser(function(user, done){
   done(null, user);
 });
 
-passport.deserializeUser(function(obj, done){
-  done(null, obj);
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+        done(err, user);
+    });
 });
 
-var requireAuth = function(req, res, next){
-  if(!req.isAuthenticated()){
-    return res.status(401).end();
-  }
-  next();
-}
+passport.use('signup', new LocalStrategy({passReqToCallback : true},
+  function(req, username, password, done) {
+    console.log('we got here');
+    findOrCreateUser = function(){
+      // find a user in Mongo with provided username
+      User.findOne({'username':username},function(err, user) {
+        // In case of any error return
+        if (err){
+          console.log('Error in SignUp: '+err);
+          return done(err);
+        }
+        // already exists
+        if (user) {
+          console.log('User already exists');
+          return done(null, false)
+            req.flash('message','User Already Exists');
+        } else {
+          // if there is no user with that email
+          // create the user
+          var newUser = new User();
+          // set the user's local credentials
+          newUser.username = username;
+          newUser.password = createHash(password);
 
-app.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/createLineup',
-    failureRedirect: '/login',
+          // save the user
+          newUser.save(function(err) {
+            if (err){
+              console.log('Error in Saving user: '+err);
+              throw err;
+            }
+            console.log('User Registration succesful');
+            return done(null, newUser);
+          });
+        }
+      });
+    };
+    process.nextTick(findOrCreateUser);
+  }
+));
+
+passport.use('login', new LocalStrategy({passReqToCallback : true},
+  function(req, username, password, done) {
+    console.log('we out here');
+    // check in mongo if a user with username exists or not
+    User.findOne({ 'username' :  username },
+      function(err, user) {
+        // In case of any error, return using the done method
+        if (err){
+          console.log(err);
+          return done(err);
+        }
+        // Username does not exist, log error & redirect back
+        if (!user){
+          console.log('User Not Found with username '+username);
+          return done(null, false,
+                req.flash('message', 'User Not found.'));
+        }
+        // User exists but wrong password, log the error
+        // if (!isValidPassword(user, password)){
+        //   console.log('Invalid Password');
+        //   return done(null, false,
+        //       req.flash('message', 'Invalid Password'));
+        // }
+        // User and password both match, return user from
+        // done method which will be treated like success
+        return done(null, user);
+      }
+    );
+}));
+
+
+// app.get('/', function(req, res) {
+//     // Display the Login page with any flash message, if any
+//     res.render('index', { message: req.flash('message') });
+// });
+
+
+app.post('/login', passport.authenticate('login',
+  {
+    successRedirect: '/#/createLineup',
+    failureRedirect: '/home',
     failureFlash: true
-  })
-)
+}));
+
+app.post('/signup', passport.authenticate('signup',
+    {
+      successRedirect: '/#/createLineup',
+      failureRedirect: '/#/login',
+      failureFlash: true
+}));
+
+
+
+
+// var requireAuth = function(req, res, next){
+//   if(!req.isAuthenticated()){
+//     return res.status(401).end();
+//   }
+//   next();
+// }
+
 
 
 
@@ -135,35 +224,36 @@ app.get('/results', function(req, res) {
     res.send(data);
   });
 });
+
 app.listen(port, function(){
   console.log("Listening on port: ", port);
 });
 
 //user endpoints
-app.post('/api/user', userCtrl.addUser);
-app.get('/api/user', userCtrl.getUser);
+// app.post('/api/user', userCtrl.addUser);
+// app.get('/api/user', userCtrl.getUser);
 
 //lineup endpoints
-app.post('/api/lineup', lineupCtrl.createLineup);
+// app.post('/api/lineup', lineupCtrl.createLineup);
 
-mongoose.connect('mongodb://localhost:27017/dailyFantasy');
+mongoose.connect('mongodb://localhost/dailyFantasy');
 
 mongoose.connection.once('open', function(){
   console.log('db connected');
 })
 
-function createLineup(req,res) {
-  var newLineup = new Lineup(req.body);
-  var lineupId;
-  newLineup.save().then(function(lineup) {
-    lineupId = lineup._id;
-    return User.findById(req.user._id).exec();
-  }).then(function(user) {
-    user.lineups.push(lineupId);
-    return user.save();
-  }).then(function(newUser) {
-    return res.json(newUser);
-  }, function(err) {
-    return res.status(500).json(err);
-  });
-}
+// function createLineup(req,res) {
+//   var newLineup = new Lineup(req.body);
+//   var lineupId;
+//   newLineup.save().then(function(lineup) {
+//     lineupId = lineup._id;
+//     return User.findById(req.user._id).exec();
+//   }).then(function(user) {
+//     user.lineups.push(lineupId);
+//     return user.save();
+//   }).then(function(newUser) {
+//     return res.json(newUser);
+//   }, function(err) {
+//     return res.status(500).json(err);
+//   });
+// }

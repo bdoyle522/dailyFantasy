@@ -39,6 +39,6 @@ app.config(function($stateProvider, $urlRouterProvider){
       templateUrl: 'app/views/playerStats/playerTmpl.html',
       controller: 'playerStatsCtrl'
     });
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/createLineup');
 
 });
