@@ -12,7 +12,7 @@ var express = require('express'),
   Lineup = require('./server-assets/models/Lineup'),
   lineupCtrl = require('./server-assets/controllers/lineupCtrl.js'),
   port = process.env.port || 9001,
-  uristring = process.env.MONGOLAB_URL || 'mongodb://localhost/dailyFantasy';
+  uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/dailyFantasy';
 
 
 var app = express();
