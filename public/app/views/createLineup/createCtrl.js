@@ -1,16 +1,17 @@
 var app = angular.module('dailyFantasy');
 
-app.controller('createCtrl', function($scope, $uibModal, $log, statService, userService){
+app.controller('createCtrl', function($scope, $uibModal, $log, $state, statService, userService){
 
   $scope.players = function(){
     statService.getPlayers().then(function(res){
-      console.log(res);
+      // console.log(res);
       $scope.athletes = res;
     });
     $scope.select1 = {};
     $scope.select2 = {};
     $scope.select3 = {};
     $scope.totalSalary = 0;
+    statService.getResults();
   };
   $scope.players();
   $scope.predicate = 'Salary';
@@ -46,9 +47,9 @@ app.controller('createCtrl', function($scope, $uibModal, $log, statService, user
       player2: $scope.select2,
       player3: $scope.select3
     };
-    userService.createLineup(lineup).then(function(res){
-      console.log(res);
-    });
+    userService.createLineup(lineup);
+    //TODO make this a promise instead of automatically going to myLineups without
+    $state.go('myLineups');
   }
 
   $scope.removePlayer = function(athlete){

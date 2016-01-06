@@ -16,11 +16,11 @@ app.config(function($stateProvider, $urlRouterProvider){
     })
     .state('previousLineups', {
       url: '/previousLineups',
-      templateUrl: 'app/views/previousLineups/prevLineTmpl.html',
-      controller: 'prevLineCtrl'
+      templateUrl: 'app/views/previousLineups/previousTmpl.html',
+      controller: 'previousCtrl'
     })
-    .state('savedLineups', {
-      url: '/savedLineups',
+    .state('myLineups', {
+      url: '/myLineups',
       templateUrl: 'app/views/savedLineups/savedTmpl.html',
       controller: 'savedCtrl'
     })

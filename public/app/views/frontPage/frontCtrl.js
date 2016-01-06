@@ -1,6 +1,6 @@
 var app = angular.module('dailyFantasy');
 
-app.controller('frontCtrl', function($scope, $http, userService){
+app.controller('frontCtrl', function($scope, $state, $http, userService){
 
   $scope.addUser = function(){
     $http({
@@ -10,6 +10,8 @@ app.controller('frontCtrl', function($scope, $http, userService){
         username: $scope.user.username,
         password: $scope.user.password
       }
+    }).success(function(res, err){
+      $state.go('createLineup');
     })
   };
 
@@ -21,6 +23,8 @@ app.controller('frontCtrl', function($scope, $http, userService){
         username: $scope.login.username,
         password: $scope.login.password
       }
+    }).success(function(res, err){
+      $state.go('createLineup');
     })
   };
 });

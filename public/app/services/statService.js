@@ -22,6 +22,13 @@ app.service('statService', function($http, $q){
     return dfd.promise;
   };
 
+  this.getResults = function(){
+    $http({
+      method: 'GET',
+      url: '/results'
+    })
+  };
+
   this.getWR1 = function(){
     return wr1;
   };
