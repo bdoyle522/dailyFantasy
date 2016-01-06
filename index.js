@@ -11,7 +11,8 @@ var express = require('express'),
   User = require('./server-assets/models/User'),
   Lineup = require('./server-assets/models/Lineup'),
   lineupCtrl = require('./server-assets/controllers/lineupCtrl.js'),
-  port = process.env.port || 9001;
+  port = process.env.port || 9001,
+  uristring = process.env.MONGOLAB_URL || 'mongodb://localhost/dailyFantasy';
 
 
 var app = express();
@@ -254,7 +255,7 @@ app.listen(port, function(){
   console.log("Listening on port: ", port);
 });
 
-mongoose.connect('mongodb://localhost/dailyFantasy');
+mongoose.connect(uristring);
 
 mongoose.connection.once('open', function(){
   console.log('db connected');
