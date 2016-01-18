@@ -56,7 +56,7 @@ passport.use('signup', new LocalStrategy({passReqToCallback : true},
     console.log('we got here');
     findOrCreateUser = function(){
       // find a user in Mongo with provided username
-      User.findOne({'username':username},function(err, user) {
+      User.findOne({'userame':username},function(err, user) {
         // In case of any error return
         if (err){
           console.log('Error in SignUp: '+err);
