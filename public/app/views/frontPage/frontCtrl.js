@@ -11,6 +11,7 @@ app.controller('frontCtrl', function($scope, $state, $http, userService){
         password: $scope.user.password
       }
     }).success(function(res, err){
+      console.log(res);
       $state.go('createLineup');
     })
   };

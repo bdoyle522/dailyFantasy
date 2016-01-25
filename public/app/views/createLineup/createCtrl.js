@@ -2,6 +2,7 @@ var app = angular.module('dailyFantasy');
 
 app.controller('createCtrl', function($scope, $uibModal, $log, $state, statService, userService){
 
+  console.log($scope.user);
   $scope.players = function(){
     statService.getPlayers().then(function(res){
       // console.log(res);

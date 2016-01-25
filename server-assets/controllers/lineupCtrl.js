@@ -4,9 +4,11 @@ var User = require('../models/User');
 
 module.exports = {
   createLineup: function(req, res){
-    var newLineup = new Lineup(req.body);
-    console.log(req.user);
-    var lineupId
+    console.log('THIS IS THE USER: ', req.user);
+    var newLineup = new Lineup();
+    newLineup.players = req.body.players;
+    newLineup.user = req.user._id;
+    console.log(newLineup);
     newLineup.save().then(function(lineup) {
       lineupId = lineup._id;
       return User.findById(req.user._id).exec();
@@ -17,17 +19,12 @@ module.exports = {
   },
 
   getUserLineups: function(req, res){
-    User.findById('56704814d5feea67dc980df3').exec().then(function(user){
-      console.log(user.lineups.length);
-      var pastLineups = {};
-      for(var i = 0; i < user.lineups.length; i++){
-
-        Lineup.findById(user.lineups[i]).exec().then(function(lineup){
-          console.log(lineup);
-          // pastLineups.push(lineup);
-        })
-      }
-      console.log(pastLineups);
+    console.log('LINEUPCTRL');
+    Lineup.find({"user": {$all: req.user._id}}).exec().then(function(lineups){
+      console.log(lineups);
+      console.log('break');
+      res.status(200);
+      res.send('lineups');
     })
   },
 

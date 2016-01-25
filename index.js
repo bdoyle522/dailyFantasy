@@ -10,6 +10,7 @@ var express = require('express'),
   flash = require('connect-flash'),
   User = require('./server-assets/models/User.js'),
   Lineup = require('./server-assets/models/Lineup.js'),
+  userCtrl = require('./server-assets/controllers/userCtrl.js'),
   lineupCtrl = require('./server-assets/controllers/lineupCtrl.js'),
   port = process.env.port || 9001,
   uristring = process.env.MONGOLAB_URI || 'mongodb://localhost/dailyFantasy';
@@ -68,20 +69,9 @@ passport.use('signup', new LocalStrategy({passReqToCallback : true},
           return done(null, false)
             req.flash('message','User Already Exists');
         } else {
-          // if there is no user with that email
-          // create the user
-          var newUser = new User();
-          // set the user's local credentials
-          newUser.username = username;
-          newUser.password = createHash(password);
-
-          // save the user
-          newUser.save(function(err) {
-            if (err){
-              console.log('Error in Saving user: '+err);
-              throw err;
-            }
-            console.log('User Registration succesful');
+          userCtrl.addUser(username, password).then(function(response){
+            console.log(response);
+            console.log('User Registration Successful');
             return done(null, newUser);
           });
         }
