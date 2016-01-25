@@ -7,6 +7,7 @@ module.exports = {
     console.log('THIS IS THE USER: ', req.user);
     var newLineup = new Lineup();
     newLineup.players = req.body.players;
+    newLineup.projected = req.body.projected;
     newLineup.user = req.user._id;
     console.log(newLineup);
     newLineup.save().then(function(lineup) {
@@ -24,7 +25,7 @@ module.exports = {
       console.log(lineups);
       console.log('break');
       res.status(200);
-      res.send('lineups');
+      res.send(lineups);
     })
   },
 

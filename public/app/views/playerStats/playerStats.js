@@ -12,21 +12,5 @@ app.controller('playerStatsCtrl', function($scope, statService){
   };
 
   $scope.stats();
-
-  $scope.chartConfig = {
-        options: {
-            chart: {
-                type: 'bar'
-            }
-        },
-        series: [{
-            data: [10, 15, 12, 8, 7]
-        }],
-        title: {
-            text: 'Hello'
-        },
-
-        loading: false
-    }
-
+  
 });

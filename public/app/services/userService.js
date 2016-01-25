@@ -14,11 +14,14 @@ app.service('userService', function($http){
   };
 
   this.createLineup = function(lineup){
+    console.log(lineup);
+    var totalProjected = lineup.player1.ProjectedFantasyPoints + lineup.player2.ProjectedFantasyPoints + lineup.player3.ProjectedFantasyPoints;
     return $http({
       method: 'POST',
       url: '/lineup',
       data: {
-        players: lineup
+        players: lineup,
+        projected: totalProjected
       }
     })
   };

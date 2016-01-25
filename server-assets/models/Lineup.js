@@ -7,6 +7,7 @@ var lineupSchema = new mongoose.Schema({
     player2: {type: Object, required: true},
     player3: {type: Object, required: true}
   }],
+  projected: {type: Number},
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 

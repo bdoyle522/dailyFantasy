@@ -18,35 +18,42 @@
           </div>
         </div>
   </nav>
-  <div class="row">
-    <form class="form">
-      <div>
-        <label for="">Username:</label>
-        <input type="text" ng-model="login.username"/>
-      </div>
-      <div>
-        <label for="">Password:</label>
-        <input type="password" ng-model="login.password"/>
-      </div>
-      <div>
-        <input type="submit" value="Log In" ng-click="login()">
-      </div>
-    </form>
-  </div>
-
-    <div class="col-md-6">
-      <form class="form">
-        <div>
-          <label for="">Username:</label>
-          <input type="text" ng-model="user.username"/>
+  <form class="form-horizontal">
+    <fieldset>
+      <div class="form-group">
+        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+        <div class="col-lg-10">
+          <input type="text" class="form-control" id="inputEmail" placeholder="Email" ng-model="user.username">
         </div>
-        <div>
-          <label for="">Password:</label>
-          <input type="password" ng-model="user.password"/>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+        <div class="col-lg-10">
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="user.password">
         </div>
-        <div>
-          <input type="submit" value="Sign up" ng-click="addUser()">
+      </div>
+      <div class="form-group col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary" ng-click="login()">Submit</button>
+      </div>
+    </fieldset>
+  </form>
+  <form class="form-horizontal">
+    <fieldset>
+      <div class="form-group">
+        <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+        <div class="col-lg-10">
+          <input type="text" class="form-control" id="inputEmail" placeholder="Email" ng-model="user.username">
         </div>
-      </form>
-    </div>
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+        <div class="col-lg-10">
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="user.password">
+        </div>
+      </div>
+      <div class="form-group col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary" ng-click="addUser()">Signup</button>
+      </div>
+    </fieldset>
+  </form>
 </div>

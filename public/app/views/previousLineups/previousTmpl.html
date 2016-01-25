@@ -23,13 +23,13 @@
       <th>Lineup ID</th>
       <th>Lineup Week</th>
       <th>Projected Points</th>
-      <th>Results</th>
+      <th>Actual Total</th>
     </tr>
     <tr ng-repeat="lineup in lineups">
       <td>{{lineup._id}}</td>
-      <td>{{lineup.week}}</td>
-      <td>{{lineup.projection}}</td>
-      <td>{{lineup.results}}</td>
+      <td>{{lineup.players[0].player1.Date | date : short}}</td>
+      <td>{{lineup.projected}}</td>
+      <td>47</td>
     </tr>
   </table>
 </div>
