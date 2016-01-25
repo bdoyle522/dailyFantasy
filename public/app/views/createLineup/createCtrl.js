@@ -57,17 +57,17 @@ app.controller('createCtrl', function($scope, $uibModal, $log, $state, statServi
       case 1:
         $scope.totalSalary -= $scope.select1.Salary
         $scope.select1 = {}
-        $scope.sortThem()
+        $scope.first = false;
         break;
       case 2:
         $scope.totalSalary -= $scope.select2.Salary
         $scope.select2 = {}
-        $scope.sortThem()
+        $scope.second = false;
         break;
       case 3:
         $scope.totalSalary -= $scope.select3.Salary
         $scope.select3 = {}
-        $scope.sortThem()
+        $scope.third = false
         break;
     }
   };
@@ -99,7 +99,6 @@ app.controller('createCtrl', function($scope, $uibModal, $log, $state, statServi
   $scope.toggleAnimation = function () {
     $scope.animationsEnabled = !$scope.animationsEnabled;
   };
-
 
 
 });

@@ -3,14 +3,14 @@ var app = angular.module('dailyFantasy');
 
 app.service('statService', function($http, $q){
 
-  var wr1 = [{"ARI": "5571"}, {"ATL": "13291"}, {"BAL": "12722"}, {"BUF": "16003"}, {"CAR": "12109"}, {"CHI": "14187"}, {"CIN": "12845"}, {"CLE": "13887"}, {"DAL": "11270"}, {"DEN": "11197"}, {"DET": "6029"}, {"GB": "13227"}, {"HOU": "14986"}, {"IND": "14005"}, {"JAX": "15018"}, {"KC": "8914"}, {"MIA": "16020"}, {"MIN": "16906"}, {"NE": "9906"}, {"NO": "16568"}, {"NYG": "16389"}, {"NYJ": "11667"}, {"OAK": "16765"}, {"PHI": "15974"}, {"PIT": "11056"}, {"SD": "2950"}, {"SF": "11712"}, {"STL": "15215"}, {"TB": "16597"}, {"TEN": "16801"}, {"WAS": "3943"}];
+  //var wr1 = [{"ARI": "5571"}, {"ATL": "13291"}, {"BAL": "12722"}, {"BUF": "16003"}, {"CAR": "12109"}, {"CHI": "14187"}, {"CIN": "12845"}, {"CLE": "13887"}, {"DAL": "11270"}, {"DEN": "11197"}, {"DET": "6029"}, {"GB": "13227"}, {"HOU": "14986"}, {"IND": "14005"}, {"JAX": "15018"}, {"KC": "8914"}, {"MIA": "16020"}, {"MIN": "16906"}, {"NE": "9906"}, {"NO": "16568"}, {"NYG": "16389"}, {"NYJ": "11667"}, {"OAK": "16765"}, {"PHI": "15974"}, {"PIT": "11056"}, {"SD": "2950"}, {"SF": "11712"}, {"STL": "15215"}, {"TB": "16597"}, {"TEN": "16801"}, {"WAS": "3943"}];
 
   this.getPlayers = function(){
     var wrs = [];
     var dfd = $q.defer();
     $http({
       method: 'GET',
-      url: '/allPlayers'
+      url: '../allplayers17.json'
     }).then(function(res){
       for (var e in res.data){
         if((res.data[e].Position === 'WR')&&(res.data[e].StatusCode === 'ACT')&&(res.data[e].Salary>2999)){

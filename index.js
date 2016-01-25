@@ -185,6 +185,12 @@ app.get('/allPlayers', function(req, res){
     }
   }).then(function(response, error){
     var resp = response.getBody();
+    fs.writeFile('allplayers.json', JSON.stringify(resp), function (err) {
+      if (err) {
+          console.log(err);
+        throw err;
+      }
+    });
     res.send(resp);
   });
 });
