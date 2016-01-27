@@ -12,7 +12,7 @@ var express = require('express'),
   Lineup = require('./server-assets/models/Lineup.js'),
   userCtrl = require('./server-assets/controllers/userCtrl.js'),
   lineupCtrl = require('./server-assets/controllers/lineupCtrl.js'),
-  port = process.env.port || 9001,
+  port = process.env.PORT || 9001,
   uristring = 'mongodb://bdoyle522:1Btdtjd$@ds051575.mongolab.com:51575/dailyfantasy';
 
 
