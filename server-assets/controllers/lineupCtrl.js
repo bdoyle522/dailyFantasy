@@ -20,7 +20,7 @@ module.exports = {
   },
 
   getUserLineups: function(req, res){
-    console.log('LINEUPCTRL');
+    console.log('LINEUPCTRL', req.user);
     Lineup.find({"user": {$all: req.user._id}}).exec().then(function(lineups){
       console.log(lineups);
       console.log('break');

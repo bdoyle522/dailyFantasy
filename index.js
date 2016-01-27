@@ -134,23 +134,6 @@ app.post('/signup', passport.authenticate('signup',
 
 //add lineup to user's file
 app.post('/lineup', lineupCtrl.createLineup);
-// app.post('/lineup', function(req, res){
-//   var newLineup = new Lineup(req.body);
-//   console.log(req.user);
-//   var lineupId
-//   newLineup.save().then(function(lineup) {
-//     lineupId = lineup._id;
-//     return User.findById(req.user._id).exec();
-//   }).then(function(user) {
-//     user.lineups.push(lineupId);
-//     return user.save();
-//   })
-//   // .then(function(newUser) {
-//   //   return res.json(newUser);
-//   // }, function(err) {
-//   //   return res.status(500).json(err);
-//   // });
-// })
 
 //get all previous lineups for the current user
 app.get('/getPrevious', lineupCtrl.getUserLineups);

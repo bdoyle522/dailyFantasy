@@ -17,6 +17,7 @@ app.controller('frontCtrl', function($scope, $state, $http, userService){
   };
 
   $scope.login = function(){
+    console.log($scope.user);
     $http({
       method: 'POST',
       url: '/login',

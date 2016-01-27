@@ -52,22 +52,49 @@ app.service('statService', function($http, $q){
   this.getWrSeasonStats = function(week){
     var dfd = $q.defer();
     var season = [];
+    var counter = 1;
+    var test = [{}, {}, {}];
     for(var week = 1; week < 11; week++){
       $http({
         method: 'GET',
         url: '../week'+week+'.json',
       }).then(function(res){
+        console.log(res);
         season.push(res.data);
         for(var i = 0; i < season.length; i++){
           season[i].Difference = (season[i].FantasyPointsFanDuel - season[i].Projection).toFixed(2);
         }
-        dfd.resolve(season);
+        counter++;
+        if(counter === week){
+          console.log(season);
+          dfd.resolve(season);
+        }
       });
+        console.log(week);
     };
     return dfd.promise;
   };
 
-
+  this.getLabels = function(stats){
+    var labels = [];
+    for(var e in stats){
+      labels.push(stats[e].Week);
+    }
+    return labels;
+    console.log(labels);
+  }
+  this.getData = function(stats){
+    var projected = [];
+    var actual = [];
+    var ret = [];
+    for(var e in stats){
+      projected.push(stats[e].Projection);
+      actual.push(stats[e].FantasyPointsFanDuel);
+    }
+    ret.push(projected);
+    ret.push(actual);
+    return ret;
+  }
 
   // this.getWR1 = function(){
   //   var dfd = $q.defer();

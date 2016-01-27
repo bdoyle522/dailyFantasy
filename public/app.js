@@ -1,4 +1,4 @@
-var app = angular.module('dailyFantasy', ['ui.router', 'ngAnimate','ui.bootstrap']);
+var app = angular.module('dailyFantasy', ['ui.router', 'ngAnimate','ui.bootstrap', 'chart.js']);
 
 
 app.config(function($stateProvider, $urlRouterProvider){

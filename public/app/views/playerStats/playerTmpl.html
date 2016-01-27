@@ -26,6 +26,7 @@
       <th>Opponent</th>
       <th>Playing Surface</th>
       <th>Projected Stats</th>
+      <th>Targets</th>
       <th>Points</th>
       <th>Projection/Performance Differential</th>
     </tr>
@@ -35,10 +36,13 @@
       <td>{{player.Opponent}}</td>
       <td>{{player.PlayingSurface}}</td>
       <td>{{player.Projection}}</td>
+      <td>{{player.ReceivingTargets}}</td>
       <td>{{player.FantasyPointsFanDuel}}</td>
       <td>{{player.Difference}}</td>
     </tr>
   </table>
 
-  <highchart id="chart1" config="chartConfig"></highchart>
+  <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick">
+  </canvas>
+
 </div>
